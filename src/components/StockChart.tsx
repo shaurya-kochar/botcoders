@@ -11,16 +11,18 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import type { StockDataPoint } from "@/types";
+import type { PriceDataPoint, AssetType } from "@/types";
 
 interface Props {
-  data: StockDataPoint[];
+  data: PriceDataPoint[];
+  /** Symbol displayed in the heading: stock ticker or index symbol */
   ticker: string;
+  assetType?: AssetType;
 }
 
 function CustomTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
-  const d = payload[0]?.payload as StockDataPoint;
+  const d = payload[0]?.payload as PriceDataPoint;
   return (
     <div className="bg-gray-900 border border-gray-700 rounded-lg px-3 py-2.5 text-xs shadow-xl min-w-[160px]">
       <p className="text-gray-400 mb-2 font-medium">{label}</p>
@@ -60,7 +62,7 @@ function CustomTooltip({ active, payload, label }: any) {
   );
 }
 
-export default function StockChart({ data, ticker }: Props) {
+export default function StockChart({ data, ticker, assetType = "stock" }: Props) {
   const ticks = data.filter((_, i) => i % 7 === 0).map((d) => d.date);
   const prices = data.map((d) => d.close);
   const minP = Math.floor(Math.min(...prices) * 0.99);
@@ -70,10 +72,12 @@ export default function StockChart({ data, ticker }: Props) {
     <div className="bg-gray-900 rounded-xl border border-gray-800 p-5">
       <div className="mb-4">
         <h2 className="text-base font-semibold text-white">
-          {ticker} — Stock Price
+          {ticker} — {assetType === "index" ? "Index Level" : "Stock Price"}
         </h2>
         <p className="text-xs text-gray-500 mt-0.5">
-          Close price with volume bars and sentiment colour overlay
+          {assetType === "index"
+            ? "Index close level with traded volume and sentiment overlay"
+            : "Close price with volume bars and sentiment colour overlay"}
         </p>
       </div>
 

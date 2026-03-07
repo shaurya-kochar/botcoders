@@ -1,6 +1,6 @@
 "use client";
 
-import { TrendingUp, TrendingDown, Minus, AlertCircle } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, AlertCircle, BarChart2 } from "lucide-react";
 import type { PredictionResult } from "@/types";
 
 interface Props {
@@ -71,11 +71,26 @@ export default function PredictionPanel({ data }: Props) {
 
   return (
     <div className="bg-gray-900 rounded-xl border border-gray-800 p-5 flex flex-col gap-5">
-      <div>
-        <h2 className="text-base font-semibold text-white">Prediction Panel</h2>
-        <p className="text-xs text-gray-500 mt-0.5">
-          LSTM model output for next trading session
-        </p>
+      <div className="flex items-start justify-between">
+        <div>
+          <h2 className="text-base font-semibold text-white">Prediction Panel</h2>
+          <p className="text-xs text-gray-500 mt-0.5">
+            LSTM model output for next trading session
+          </p>
+        </div>
+        <span
+          className={`
+            flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full border font-medium
+            ${
+              data.assetType === "index"
+                ? "bg-amber-500/10 border-amber-500/20 text-amber-400"
+                : "bg-indigo-500/10 border-indigo-500/20 text-indigo-400"
+            }
+          `}
+        >
+          <BarChart2 size={11} />
+          {data.assetType === "index" ? "Market Index" : "Stock"}
+        </span>
       </div>
 
       {/* Direction card */}

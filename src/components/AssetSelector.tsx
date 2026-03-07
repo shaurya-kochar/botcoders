@@ -1,22 +1,29 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import type { AssetOption } from "@/types";
+import type { AssetOption, AssetType } from "@/types";
 
-/** @deprecated — use AssetSelector instead */
 interface Props {
   options: AssetOption[];
-  selected: string;
+  selected: string;          // the symbol
+  assetType: AssetType;      // drives label copy
   onChange: (symbol: string) => void;
 }
 
-export default function StockSelector({ options, selected, onChange }: Props) {
+// Region flag emoji — keeps things visually rich without extra deps
+const REGION_FLAGS: Record<string, string> = {
+  US: "🇺🇸",
+  IN: "🇮🇳",
+};
+
+export default function AssetSelector({ options, selected, assetType, onChange }: Props) {
   const current = options.find((o) => o.symbol === selected);
+  const label = assetType === "stock" ? "Stock" : "Index";
 
   return (
     <div className="flex items-center gap-3">
-      <span className="text-sm font-medium text-gray-400 uppercase tracking-wider">
-        Stock
+      <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+        {label}
       </span>
       <div className="relative">
         <select
@@ -31,6 +38,7 @@ export default function StockSelector({ options, selected, onChange }: Props) {
         >
           {options.map((opt) => (
             <option key={opt.symbol} value={opt.symbol}>
+              {opt.region ? `${REGION_FLAGS[opt.region] ?? ""} ` : ""}
               {opt.symbol} — {opt.name}
             </option>
           ))}
@@ -40,12 +48,11 @@ export default function StockSelector({ options, selected, onChange }: Props) {
           className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
         />
       </div>
-      {current && (
-        <span className="hidden sm:inline text-xs text-gray-500">
-          {current.name}
+      {current?.region && (
+        <span className="hidden sm:inline text-lg leading-none" aria-label={current.region}>
+          {REGION_FLAGS[current.region]}
         </span>
       )}
     </div>
   );
 }
-
