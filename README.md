@@ -8,11 +8,13 @@ Stock close-price prediction using traditional ML and deep learning models, with
 
 - [Task Description](#task-description)
 - [Features](#features)
+- [FinBERT — Sentiment Model](#finbert--sentiment-model)
 - [Architecture](#architecture)
 - [Metrics](#metrics)
 - [File Structure](#file-structure)
 - [How to Run](#how-to-run)
 - [Results](#results)
+- [Full Pipeline Documentation](#full-pipeline-documentation)
 
 ---
 
@@ -44,16 +46,36 @@ Two setups are compared throughout:
 
 ### Sentiment Features (2)
 
-Tweets within each time span are collected and processed through a sentiment pipeline. The **average** positive and negative scores across all tweets are used:
+Tweets/news articles within each time span are scored by **FinBERT** (see [below](#finbert--sentiment-model)). The **average** positive and negative probabilities across all texts in the time span become the two sentiment features:
 
 | Feature | Description |
 |---|---|
-| `positiveness` | Mean positive sentiment score across tweets (0–1) |
-| `negativeness` | Mean negative sentiment score across tweets (0–1) |
+| `positiveness` | Mean FinBERT positive probability across texts (0–1) |
+| `negativeness` | Mean FinBERT negative probability across texts (0–1) |
 
-> Note: `positiveness + negativeness ≠ 1` — tweets can carry neutral sentiment as well.
+> Note: `positiveness + negativeness ≠ 1` — texts can also carry neutral sentiment. All three probabilities sum to 1.0 per text.
 
 **Target:** `close` — closing price
+
+---
+
+## FinBERT — Sentiment Model
+
+[FinBERT](https://huggingface.co/ProsusAI/finbert) (`ProsusAI/finbert`) is a BERT-based model pre-trained on large financial corpora and fine-tuned on the **Financial PhraseBank** dataset (~10,000 manually labelled financial news sentences) for 3-class sentiment classification.
+
+| Property | Detail |
+|---|---|
+| Base model | `bert-base-uncased` (12 layers, 768 hidden dims) |
+| Fine-tuned on | Financial PhraseBank (Malo et al., 2014) |
+| Output classes | `positive`, `negative`, `neutral` |
+| Output format | Softmax probabilities — sum to 1.0 per text |
+| Max input length | 512 tokens (BERT hard limit; longer texts are truncated) |
+| HuggingFace ID | `ProsusAI/finbert` |
+
+FinBERT understands **domain-specific financial language** — phrases like *"earnings beat expectations"*, *"margin call"*, or *"revenue guidance raised"* are interpreted correctly, unlike general-purpose sentiment models trained on social media or product reviews.
+
+**Why continuous scores instead of the existing label?**  
+The raw dataset already has a hard `sentiment` label (`positive` / `negative` / `neutral`). FinBERT adds **continuous probability scores** — e.g. `positiveness=0.91` vs `positiveness=0.52` both map to the label `positive` but carry very different signal strength for the prediction model.
 
 ---
 
@@ -203,6 +225,16 @@ python models/lstm.py
 ### 4. View the report
 
 Open [report.md](report.md) — it contains metric tables and all plots, auto-updated every time `evaluate_all.py` is run.
+
+---
+
+## Full Pipeline Documentation
+
+For the complete end-to-end pipeline walkthrough — from raw CSV ingestion, through yfinance feature engineering and FinBERT sentiment scoring, to model training and evaluation — see:
+
+**[PIPELINE.md](PIPELINE.md)**
+
+It covers every stage with diagrams, data schemas, and step-by-step commands.
 
 ---
 

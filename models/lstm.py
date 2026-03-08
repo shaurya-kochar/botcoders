@@ -81,7 +81,7 @@ def train(
     hidden_size: int = 64,
     num_layers: int = 2,
     dropout: float = 0.2,
-    lr: float = 1e-3,
+    lr: float = 1e-5,
     epochs: int = 100,
     batch_size: int = 4,
 ):

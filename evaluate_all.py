@@ -24,10 +24,10 @@ from utils.reporter            import generate_report
 
 # ── Defaults ─────────────────────────────────────────────────────────────────
 
-DEFAULT_CSV    = os.path.join(ROOT, "samples", "dataset.csv")
+DEFAULT_CSV    = os.path.join(ROOT, "samples", "full_dataset_with_sentiment.csv")
 DEFAULT_REPORT = os.path.join(ROOT, "report.md")
 DEFAULT_PLOTS  = os.path.join(ROOT, "plots")
-LSTM_EPOCHS    = 100
+LSTM_EPOCHS    = 10
 
 
 # ── Runner helpers ────────────────────────────────────────────────────────────
