@@ -1,0 +1,60 @@
+========================================================================
+  EXPLORATORY DATA ANALYSIS REPORT
+========================================================================
+
+1. SENTIMENT DISTRIBUTION
+----------------------------------------
+    count:   2160.0000
+     mean:      0.2855
+      std:      0.2344
+      min:     -0.3598
+      25%:      0.1523
+      50%:      0.2823
+      75%:      0.4008
+      max:      0.9892
+     skew:      0.2514
+     kurt:      0.1328
+
+2. TEXT LENGTH DISTRIBUTION (characters)
+----------------------------------------
+    count:      2160.0
+     mean:        49.6
+      std:         4.0
+      min:        43.0
+      25%:        49.0
+      50%:        49.0
+      75%:        52.0
+      max:        61.0
+
+   Word count:
+       mean:         7.9
+        std:         1.2
+        min:         7.0
+        max:        11.0
+
+3. DATASET IMBALANCE
+----------------------------------------
+   Sentiment class distribution:
+     Positive      1,247  ( 57.7%)
+     Neutral         899  ( 41.6%)
+     Negative         14  (  0.6%)
+   Imbalance ratio (max/min): 89.07
+
+   Records per source:
+     twitter             540  ( 25.0%)
+     reddit              540  ( 25.0%)
+     instagram           540  ( 25.0%)
+     newsletter          540  ( 25.0%)
+
+   Records per symbol:
+     AAPL            240  ( 11.1%)
+     AMZN            240  ( 11.1%)
+     MSFT            240  ( 11.1%)
+     NASDAQ          240  ( 11.1%)
+     NIFTY50         240  ( 11.1%)
+     NVDA            240  ( 11.1%)
+     SENSEX          240  ( 11.1%)
+     SP500           240  ( 11.1%)
+     TSLA            240  ( 11.1%)
+
+========================================================================
