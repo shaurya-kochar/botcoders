@@ -78,7 +78,7 @@ def evaluate(model: nn.Module, loader, device: torch.device, label: str = ""):
 def train(
     csv_path: str,
     with_sentiment: bool = True,
-    hidden_size: int = 64,
+    hidden_size: int = 16,
     num_layers: int = 2,
     dropout: float = 0.2,
     lr: float = 1e-5,

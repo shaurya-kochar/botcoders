@@ -1,6 +1,6 @@
 # Model Evaluation Report
 
-> Auto-generated on **2026-03-08 06:48:43**
+> Auto-generated on **2026-03-08 07:08:26**
 
 ## Overview
 
@@ -19,10 +19,10 @@ close-price prediction task, evaluated with and without Twitter sentiment featur
 |---|---|---|---|---|
 | Linear Regression | Without | 0.2351 | 0.1814 | 0.9989 |
 | Linear Regression | With | 0.2351 | 0.1814 | 0.9989 |
-| Random Forest | Without | 0.0125 | 0.0003 | 1.0000 |
-| Random Forest | With | 0.0123 | 0.0004 | 1.0000 |
-| LSTM | Without | 4.3406 | 0.8751 | 0.6308 |
-| LSTM | With | 4.3837 | 0.9044 | 0.6234 |
+| Random Forest | Without | 0.0116 | 0.0003 | 1.0000 |
+| Random Forest | With | 0.0120 | 0.0004 | 1.0000 |
+| LSTM | Without | 6.4472 | 1.6797 | 0.1854 |
+| LSTM | With | 6.2656 | 1.5689 | 0.2307 |
 
 ---
 
@@ -31,11 +31,11 @@ close-price prediction task, evaluated with and without Twitter sentiment featur
 | Model | Sentiment | RMSE ↓ | MAE ↓ | R² ↑ |
 |---|---|---|---|---|
 | Linear Regression | Without | 0.4439 | 0.1448 | 0.9989 |
-| Linear Regression | With | 0.4454 | 0.1449 | 0.9989 |
-| Random Forest | Without | 7.9156 | 0.7318 | 0.6544 |
-| Random Forest | With | 7.9225 | 0.7319 | 0.6538 |
-| LSTM | Without | 11.2737 | 1.4629 | 0.2990 |
-| LSTM | With | 11.3074 | 1.5103 | 0.2948 |
+| Linear Regression | With | 0.4455 | 0.1449 | 0.9989 |
+| Random Forest | Without | 7.9131 | 0.7281 | 0.6546 |
+| Random Forest | With | 7.9230 | 0.7308 | 0.6538 |
+| LSTM | Without | 12.8530 | 2.1541 | 0.0888 |
+| LSTM | With | 12.7274 | 2.1988 | 0.1065 |
 
 ---
 
@@ -47,8 +47,8 @@ For RMSE/MAE: negative Δ = improvement. For R²: positive Δ = improvement.
 | Model | ΔRMSE | ΔMAE | ΔR² |
 |---|---|---|---|
 | Linear Regression | +0.0015 ❌ | +0.0001 ❌ | -0.0000 ❌ |
-| Random Forest | +0.0069 ❌ | +0.0002 ❌ | -0.0006 ❌ |
-| LSTM | +0.0337 ❌ | +0.0475 ❌ | -0.0042 ❌ |
+| Random Forest | +0.0099 ❌ | +0.0028 ❌ | -0.0009 ❌ |
+| LSTM | -0.1256 ✅ | +0.0446 ❌ | +0.0177 ✅ |
 
 ---
 
@@ -56,8 +56,8 @@ For RMSE/MAE: negative Δ = improvement. For R²: positive Δ = improvement.
 
 | Variant | Final Train Loss | Final Val Loss |
 |---|---|---|
-| Without Sentiment | 20.459168 | 129.654149 |
-| With Sentiment | 20.826739 | 130.425589 |
+| Without Sentiment | 42.691293 | 168.227892 |
+| With Sentiment | 40.508198 | 164.977533 |
 
 ---
 
