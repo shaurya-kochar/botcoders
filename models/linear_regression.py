@@ -1,11 +1,12 @@
 import os
 import numpy as np
+import joblib
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-from datasets.dataloader import get_dataloaders
+from datasets.dataloader import get_flat_dataloaders
 
 
 def evaluate(model, loader, label=""):
@@ -28,11 +29,11 @@ def evaluate(model, loader, label=""):
     return y_pred, y_all, {"rmse": rmse, "mae": mae, "r2": r2}
 
 
-def run(csv_path: str, with_sentiment: bool = True):
-    tag = "With Sentiment (8 features)" if with_sentiment else "Without Sentiment (6 features)"
+def run(csv_path: str, with_sentiment: bool = True, checkpoint_dir: str = None):
+    tag = "With Sentiment" if with_sentiment else "Without Sentiment"
     print(f"\n=== Linear Regression — {tag} ===")
 
-    train_loader, test_loader, _ = get_dataloaders(
+    train_loader, test_loader, _ = get_flat_dataloaders(
         csv_path, test_size=0.2, batch_size=32, with_sentiment=with_sentiment
     )
 
@@ -52,6 +53,13 @@ def run(csv_path: str, with_sentiment: bool = True):
 
     tr_preds, tr_targets, tr_metrics = evaluate(model, train_loader, label="  [Train]")
     te_preds, te_targets, te_metrics = evaluate(model, test_loader,  label="  [Test] ")
+
+    if checkpoint_dir:
+        os.makedirs(checkpoint_dir, exist_ok=True)
+        suffix = "with_sentiment" if with_sentiment else "no_sentiment"
+        ckpt_path = os.path.join(checkpoint_dir, f"linear_regression_{suffix}.joblib")
+        joblib.dump(model, ckpt_path)
+        print(f"  Checkpoint saved: {ckpt_path}")
 
     results = {
         "train": {**tr_metrics, "preds": tr_preds, "targets": tr_targets},

@@ -1,6 +1,6 @@
 # Model Evaluation Report
 
-> Auto-generated on **2026-03-08 07:08:26**
+> Auto-generated on **2026-04-09 11:23:28**
 
 ## Overview
 
@@ -17,12 +17,12 @@ close-price prediction task, evaluated with and without Twitter sentiment featur
 
 | Model | Sentiment | RMSE ↓ | MAE ↓ | R² ↑ |
 |---|---|---|---|---|
-| Linear Regression | Without | 0.2351 | 0.1814 | 0.9989 |
-| Linear Regression | With | 0.2351 | 0.1814 | 0.9989 |
-| Random Forest | Without | 0.0116 | 0.0003 | 1.0000 |
-| Random Forest | With | 0.0120 | 0.0004 | 1.0000 |
-| LSTM | Without | 6.4472 | 1.6797 | 0.1854 |
-| LSTM | With | 6.2656 | 1.5689 | 0.2307 |
+| Linear Regression | Without | 0.0048 | 0.0035 | 0.9988 |
+| Linear Regression | With | 0.0048 | 0.0035 | 0.9988 |
+| Random Forest | Without | 0.0019 | 0.0013 | 0.9998 |
+| Random Forest | With | 0.0019 | 0.0013 | 0.9998 |
+| LSTM | Without | 0.0083 | 0.0063 | 0.9965 |
+| LSTM | With | 0.0077 | 0.0053 | 0.9970 |
 
 ---
 
@@ -30,12 +30,12 @@ close-price prediction task, evaluated with and without Twitter sentiment featur
 
 | Model | Sentiment | RMSE ↓ | MAE ↓ | R² ↑ |
 |---|---|---|---|---|
-| Linear Regression | Without | 0.4439 | 0.1448 | 0.9989 |
-| Linear Regression | With | 0.4455 | 0.1449 | 0.9989 |
-| Random Forest | Without | 7.9131 | 0.7281 | 0.6546 |
-| Random Forest | With | 7.9230 | 0.7308 | 0.6538 |
-| LSTM | Without | 12.8530 | 2.1541 | 0.0888 |
-| LSTM | With | 12.7274 | 2.1988 | 0.1065 |
+| Linear Regression | Without | 0.0066 | 0.0054 | 0.9968 |
+| Linear Regression | With | 0.0066 | 0.0054 | 0.9968 |
+| Random Forest | Without | 0.0161 | 0.0103 | 0.9809 |
+| Random Forest | With | 0.0158 | 0.0100 | 0.9817 |
+| LSTM | Without | 0.0114 | 0.0095 | 0.9904 |
+| LSTM | With | 0.0132 | 0.0096 | 0.9871 |
 
 ---
 
@@ -46,9 +46,9 @@ For RMSE/MAE: negative Δ = improvement. For R²: positive Δ = improvement.
 
 | Model | ΔRMSE | ΔMAE | ΔR² |
 |---|---|---|---|
-| Linear Regression | +0.0015 ❌ | +0.0001 ❌ | -0.0000 ❌ |
-| Random Forest | +0.0099 ❌ | +0.0028 ❌ | -0.0009 ❌ |
-| LSTM | -0.1256 ✅ | +0.0446 ❌ | +0.0177 ✅ |
+| Linear Regression | +0.0000 ❌ | +0.0000 ❌ | -0.0000 ❌ |
+| Random Forest | -0.0004 ✅ | -0.0003 ✅ | +0.0009 ✅ |
+| LSTM | +0.0018 ❌ | +0.0002 ❌ | -0.0033 ❌ |
 
 ---
 
@@ -56,8 +56,8 @@ For RMSE/MAE: negative Δ = improvement. For R²: positive Δ = improvement.
 
 | Variant | Final Train Loss | Final Val Loss |
 |---|---|---|
-| Without Sentiment | 42.691293 | 168.227892 |
-| With Sentiment | 40.508198 | 164.977533 |
+| Without Sentiment | 0.000104 | 0.000126 |
+| With Sentiment | 0.000107 | 0.000187 |
 
 ---
 
