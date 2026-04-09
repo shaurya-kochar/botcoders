@@ -6,3 +6,6 @@ matplotlib
 yfinance
 transformers
 tqdm
+fastapi
+uvicorn
+joblib
