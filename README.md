@@ -39,26 +39,24 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## EDA & Feature Engineering 
 
+Data engineering pipeline: real NIFTY 50 + S&P 500 prices + 2.5M social media posts → 34 engineered features → sliding window sequences for LSTM.
+
 Overview
-
 This project predicts stock market closing prices using a combination of market data (OHLCV) and social sentiment from Twitter, Reddit, and financial news.
-
 We combine quantitative signals (price, volume, indicators) with qualitative signals (public sentiment) to model market behavior.
 
 # Data Sources
-Stock Market Data
-Source: Yahoo Finance (via yfinance)
-Indices used:
-NIFTY 50 (^NSEI)
-S&P 500 (^GSPC)
-Features:
-Open, High, Low, Close, Volume (OHLCV)
- Sentiment Data (Kaggle)
-Twitter dataset (stock tweets)
-Reddit dataset (financial discussions)
-Financial news dataset (headlines/articles)
+Source     Data                               Size
+Yahoo FinanceNIFTY 50 + S&P 500 OHLCV  1477 + 1509 rows, 2019-2024
+Kaggle RedditWallStreetBets posts      1.1M rows
+Kaggle TwitterStock tweets             80K rows
+Kaggle NewsFinancial headlines         1.4M rows
 
-All datasets are merged and cleaned into a unified format.
+
+
+X shape = (N, 6, 12)    ← N samples, 6 time steps, 12 features per step
+y shape = (N,)          ← closing price to predict
+Each time step has: open, high, low, close, volume, S_t, daily_return, rsi, macd, bb_width, momentum, confidence
 
 # Data Processing Pipeline
 Text Cleaning
@@ -88,7 +86,6 @@ bucket column acts as the time index
 # Model Input (Sliding Window)
 
 We use a 6-day sliding window:
-
 Input (X):
 Past 6 days of:
 OHLCV
@@ -99,27 +96,30 @@ Next day closing price
 # Final Dataset
 
 Stored as NumPy arrays:
-
 X_nifty50.npy, y_nifty50.npy
 X_sp500.npy, y_sp500.npy
 
-Shape:
 
+Shape:
 X → (samples, 6, features)
 y → (samples,)
 
 #Key Idea
-
 The model learns patterns such as:
-
 Rising sentiment → potential price increase
 Sudden negative sentiment → possible drop
- 
- #Visualizations: 
-Generated plots include:
 
-Price trends
-Sentiment trends
-Sentiment vs price
-RSI analysis
-Correlation heatmaps
+ Run order
+bashpython3 scripts/fetch_stocks.py
+python3 scripts/clean_text.py
+python3 scripts/sentiment.py
+python3 scripts/merge_sequence.py
+python3 scripts/prepare_sequences.py
+python3 scripts/plots.py
+ 
+
+Kaggle links
+
+Reddit: kaggle.com/datasets/unanimad/reddit-rwallstreetbets
+Twitter: kaggle.com/datasets/equinxx/stock-tweets-for-sentiment-analysis-and-prediction
+News: kaggle.com/datasets/miguelaenlle/massive-stock-news-analysis-db-for-nlpbacktests
